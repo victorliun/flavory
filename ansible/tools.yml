@@ -1,0 +1,13 @@
+---
+- hosts: localhost
+  remote_user: root
+  sudo: yes
+  tasks:
+    - name: Install favorate tools
+      apt: pkg={{ item }} force=yes state=latest
+      with_items:
+        - emacs
+        - htop
+        - git
+        - tree
+        - libtinfo-dev

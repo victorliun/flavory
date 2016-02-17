@@ -1,0 +1,54 @@
+#################################################################################################
+# Take this from existing profile
+# if running bash
+if [ -n "$BASH_VERSION" ]; then
+    # include .bashrc if it exists
+    if [ -f "$HOME/.bashrc" ]; then
+        . "$HOME/.bashrc"
+    fi
+fi
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/bin" ] ; then
+    PATH="$HOME/bin:$PATH"
+fi
+
+# Prompt colour configuration
+# preferred color for host
+# export PS1="\[\e[35;1m\]\u@\h - \[\e[32;1m\]\t \[\e[31;1m\]\w\[\e[32;1m\]\\n\$\[\e[36;1m\] "
+# preferred color for guest
+export PS1="\[\e[34;1m\]\u@\h - \[\e[33;1m\]\t \[\e[31;1m\]\w\[\e[32;1m\]\\n\$\[\e[39;0m\] "
+export CLICOLOR=1
+export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
+
+#define preferred tools
+export EDITOR=emacs
+export PAGER=less
+
+# Alias to save key stroke
+alias l='ls'
+alias ll='ls -l'
+#long list of ls
+alias lf='ls -CF'
+#colors and file type
+alias lx='ls -lXB'
+#sorted by file extension
+alias lk='ls -lSr'
+#sorted by size
+alias lt="ls -ltr"
+#sorted by date
+alias la="ls -a"
+#show hidden files
+alias lla="ls -al"
+alias psgrep="ps aux | grep "
+alias ..="cd .."
+alias ...="cd ../.."
+alias .3="cd ../../.."
+alias .4="cd ../../../.."
+alias .5="cd ../../../../../"
+alias h="history"
+
+tm() {
+  [[ -z "$1" ]] && { echo "usage: tm <session>" >&2; return 1; }
+  tmux has -t $1 && tmux attach -d -t $1 || tmux new -s $1
+}
