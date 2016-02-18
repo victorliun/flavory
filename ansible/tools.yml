@@ -1,13 +1,27 @@
 ---
 - hosts: localhost
-  remote_user: root
-  sudo: yes
+  become: yes
   tasks:
+    - name: Run apt-get update
+      apt: update_cache=yes
+
     - name: Install favorate tools
-      apt: pkg={{ item }} force=yes state=latest
+      apt: pkg={{ item }} state=latest
       with_items:
+        - compiz
+        - compiz-plugins
+        - compizconfig-settings-manager
         - emacs
-        - htop
         - git
-        - tree
+        - htop
         - libtinfo-dev
+        - tmux
+        - tree
+        - wmctrl
+
+    # extra Python modules
+    - name: Install python modules
+      pip: name={{ item }}
+      with_items:
+        - epc
+        - jedi
