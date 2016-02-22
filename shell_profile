@@ -50,6 +50,7 @@ alias .4="cd ../../../.."
 alias .5="cd ../../../../../"
 alias h="history"
 alias emc="emacsclient"
+alias emct="emacsclient -t"
 
 tm() {
   [[ -z "$1" ]] && { echo "usage: tm <session>" >&2; return 1; }
@@ -64,3 +65,6 @@ start() {
 killemc (){
   emacsclient -e "(kill-emacs)"
 }
+
+# adding autojump
+. /usr/share/autojump/autojump.sh
