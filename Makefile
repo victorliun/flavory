@@ -3,6 +3,7 @@ install:
 	ln -sf $(CURDIR)/gitconfig ~/.gitconfig
 	ln -sf $(CURDIR)/bin ~/bin
 	ln -sf $(CURDIR)/tmux.conf ~/.tmux.conf
+	ln -sf $(CURDIR)/.spacemacs ~/.spacemacs
 .PHONY : install
 
 ansible:

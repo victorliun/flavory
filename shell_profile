@@ -71,4 +71,4 @@ killemc (){
 }
 
 # adding autojump
-. /usr/share/autojump/autojump.sh
+. /usr/local/etc/autojump.sh
