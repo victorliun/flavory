@@ -308,6 +308,8 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (global-set-key (kbd "M-p") 'move-text-up)
   (global-set-key (kbd "M-n") 'move-text-down)
 
+  ;; magit
+  (global-set-key (kbd "C-x g") 'magit-status)
 
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
