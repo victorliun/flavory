@@ -39,20 +39,22 @@ values."
 
      auto-completion
      better-defaults
-     c-c++
+     (c-c++ :variables c-c++-enable-clang-support t)
      django
      emacs-lisp
      git
      markdown
-     org
      helm
      ibuffer
      html
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom)
+     org
      python
+     ranger
      semantic
+     smex
      spell-checking
      syntax-checking
      version-control
@@ -113,20 +115,26 @@ values."
    ;; directory. A string value must be a path to an image format supported
    ;; by your Emacs build.
    ;; If the value is nil then no banner is displayed. (default 'official)
-   dotspacemacs-startup-banner 'official
+   dotspacemacs-startup-banner nil
    ;; List of items to show in startup buffer or an association list of of
    ;; the form `(list-type . list-size)`. If nil it is disabled.
    ;; Possible values for list-type are:
    ;; `recents' `bookmarks' `projects' `agenda' `todos'."
-   dotspacemacs-startup-lists '((recents . 5)
-                                (projects . 7))
+   dotspacemacs-startup-lists '((recents . 20)
+                                (bookmarks . 10)
+                                (projects . 10))
    ;; Default major mode of the scratch buffer (default `text-mode')
    dotspacemacs-scratch-mode 'text-mode
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(spacemacs-dark
-                         spacemacs-light)
+   dotspacemacs-themes '(solarized-dark
+                         monokai
+                         material
+                         spacemacs-dark
+                         spacemacs-light
+                         leuven
+                         zenburn)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
@@ -233,7 +241,7 @@ values."
    ;; If non nil show the color guide hint for transient state keys. (default t)
    dotspacemacs-show-transient-state-color-guide t
    ;; If non nil unicode symbols are displayed in the mode line. (default t)
-   dotspacemacs-mode-line-unicode-symbols t
+   dotspacemacs-mode-line-unicode-symbols nil
    ;; If non nil smooth scrolling (native-scrolling) is enabled. Smooth
    ;; scrolling overrides the default behavior of Emacs which recenters point
    ;; when it reaches the top or bottom of the screen. (default t)
@@ -285,6 +293,12 @@ before packages are loaded. If you are unsure, you should try in setting them in
   )
 
 (defun dotspacemacs/user-config ()
+  "Configuration function for user code.
+This function is called at the very end of Spacemacs initialization after
+layers configuration.
+This is the place where most of your configurations should be done. Unless it is
+explicitly specified that a variable should be set before a package is loaded,
+you should place your code here."
   ;;Configure multiple term
   (require 'helm-mt)
   (global-set-key (kbd "C-x t") 'helm-mt)
@@ -311,12 +325,6 @@ before packages are loaded. If you are unsure, you should try in setting them in
   ;; magit
   (global-set-key (kbd "C-x g") 'magit-status)
 
-  "Configuration function for user code.
-This function is called at the very end of Spacemacs initialization after
-layers configuration.
-This is the place where most of your configurations should be done. Unless it is
-explicitly specified that a variable should be set before a package is loaded,
-you should place your code here."
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
