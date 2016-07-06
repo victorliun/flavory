@@ -43,17 +43,16 @@ values."
      django
      emacs-lisp
      git
-     markdown
      helm
-     ibuffer
      html
+     ibuffer
+     markdown
+     org
+     python
+     semantic
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom)
-     org
-     python
-     ranger
-     semantic
      smex
      spell-checking
      syntax-checking
