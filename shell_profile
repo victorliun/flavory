@@ -17,11 +17,6 @@ if [ -f ~/bin/git-completion.bash ]; then
   . ~/bin/git-completion.bash
 fi
 
-# Prompt colour configuration
-# preferred color for host
-export PS1="\[\e[35;1m\]\u@\h - \[\e[32;1m\]\t \[\e[31;1m\]\w\[\e[32;1m\]\\n\$\[\e[36;1m\] "
-# preferred color for guest
-# export PS1="\[\e[34;1m\]\u@\h - \[\e[33;1m\]\t \[\e[31;1m\]\w\[\e[32;1m\]\\n\$\[\e[39;0m\] "
 export CLICOLOR=1
 export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
 export TERM="xterm-256color"
@@ -71,4 +66,14 @@ killemc (){
 }
 
 # adding autojump
-. /usr/local/etc/autojump.sh
+sysname=`uname`
+if [[ "$sysname" == 'Linux' ]]; then
+   . /usr/share/autojump/autojump.sh
+   # preferred color for guest
+   export PS1="\[\e[34;1m\]\u@\h - \[\e[33;1m\]\t \[\e[31;1m\]\w\[\e[32;1m\]\\n\$\[\e[39;0m\] "
+else
+  . /usr/local/etc/autojump.sh
+  # Prompt colour configuration
+  # preferred color for host
+  export PS1="\[\e[35;1m\]\u@\h - \[\e[32;1m\]\t \[\e[31;1m\]\w\[\e[32;1m\]\\n\$\[\e[36;1m\] "
+fi
