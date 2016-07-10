@@ -347,6 +347,8 @@ there's a region, all lines that region covers will be duplicated."
             (setq end (point)))
           (goto-char (+ origin (* (length region) arg) arg)))))
   (global-set-key (kbd "C-c d") 'duplicate-current-line-or-region)
+  ;; favorite kill command
+  (global-set-key (kbd "C-c w") 'kill-whole-line)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
