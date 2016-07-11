@@ -289,6 +289,9 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
+  (defun bb/no-hl-line-mode()
+    (setq-local global-hl-line-mode nil))
+  (add-hook 'term-mode-hook 'bb/no-hl-line-mode)
   )
 
 (defun dotspacemacs/user-config ()
