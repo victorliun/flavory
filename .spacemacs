@@ -282,7 +282,18 @@ values."
    ;; delete only whitespace for changed lines or `nil' to disable cleanup.
    ;; (default nil)
    dotspacemacs-whitespace-cleanup nil
-   ))
+   )
+
+  (if (not (eq window-system 'x))
+      (setq-default dotspacemacs-themes '(monokai
+                                         solarized-dark
+                                         material
+                                         spacemacs-dark
+                                         spacemacs-light
+                                         leuven
+                                         zenburn)
+      ))
+  )
 
 (defun dotspacemacs/user-init ()
   "Initialization function for user code.
