@@ -284,7 +284,7 @@ values."
    dotspacemacs-whitespace-cleanup nil
    )
 
-  (if (not (eq window-system 'x))
+  (if (not (eq window-system 'ns))
       (setq-default dotspacemacs-themes '(monokai
                                          solarized-dark
                                          material
@@ -322,7 +322,7 @@ you should place your code here."
   (setq display-time-day-and-date t
         display-time-24hr-format t)
   (display-time)
-  (if (eq window-system 'x)
+  (if (eq window-system 'ns)
       (mouse-wheel-mode -1)
     )
   (setq tramp-ssh-controlmaster-options
