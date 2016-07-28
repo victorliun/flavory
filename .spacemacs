@@ -48,7 +48,7 @@ values."
      ibuffer
      markdown
      org
-     python
+     (python :variables python-enable-yapf-format-on-save t)
      semantic
      (shell :variables
             shell-default-height 30
@@ -311,7 +311,9 @@ you should place your code here."
   (setq display-time-day-and-date t
         display-time-24hr-format t)
   (display-time)
-  (mouse-wheel-mode -1)
+  (if (eq window-system 'x)
+      (mouse-wheel-mode -1)
+    )
   (setq tramp-ssh-controlmaster-options
         "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no")
 
