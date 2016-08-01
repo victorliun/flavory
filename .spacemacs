@@ -52,8 +52,8 @@ values."
      semantic
      (shell :variables
             shell-default-height 30
-            shell-default-position 'bottom)
-     ;; smex
+            shell-default-position 'bottom
+            shell-default-shell 'eshell)
      spell-checking
      syntax-checking
      tmux
