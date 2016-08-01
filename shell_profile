@@ -9,13 +9,11 @@ if [ -n "$BASH_VERSION" ]; then
 fi
 
 # set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/bin" ] ; then
-    PATH="$HOME/bin:$PATH"
+if [ -d "$HOME/.bin" ] ; then
+    PATH="$HOME/.bin:$PATH"
 fi
 
-if [ -f ~/bin/git-completion.bash ]; then
-  . ~/bin/git-completion.bash
-fi
+for f in ~/.bash/*; do source $f; done
 
 export CLICOLOR=1
 export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
@@ -73,12 +71,12 @@ sysname=`uname`
 if [[ "$sysname" == 'Linux' ]]; then
    . /usr/share/autojump/autojump.sh
    # preferred color for guest
-   export PS1="\[\e[34;1m\]\u@\h - \[\e[33;1m\]\t \[\e[31;1m\]\w \[\e[35;1m\]$(parse_git_branch)\[\e[32;1m\]\\n\$\[\e[39;0m\] "
+   export PS1="\[\e[34;1m\]\u@\h - \[\e[33;1m\]\t \[\e[31;1m\]\w \[\e[35;1m\]\$(__git_ps1)\[\e[32;1m\]\\n\$\[\e[39;0m\] "
 else
   . /usr/local/etc/autojump.sh
   # Prompt colour configuration
   # preferred color for host
-  export PS1="\[\e[35;1m\]\u@\h - \[\e[32;1m\]\t \[\e[31;1m\]\w \[\e[34;1m\]$(parse_git_branch)\[\e[32;1m\]\\n\$\[\e[36;1m\] "
+  export PS1="\[\e[35;1m\]\u@\h - \[\e[32;1m\]\t \[\e[31;1m\]\w \[\e[34;1m\]\$(__git_ps1)\[\e[32;1m\]\\n\$\[\e[36;1m\] "
 fi
 
 # pyenv root
