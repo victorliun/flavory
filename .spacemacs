@@ -399,7 +399,7 @@ there's a region, all lines that region covers will be duplicated."
     )
   (evil-leader/set-key "o y" 'copy-to-clipboard)
   (evil-leader/set-key "o p" 'paste-from-clipboard)
-
+  (setq tramp-default-method "ssh")
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
