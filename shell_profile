@@ -12,6 +12,7 @@ fi
 if [ -d "$HOME/.bin" ] ; then
     PATH="$HOME/.bin:$PATH"
 fi
+PATH="$HOME/bin:$PATH"
 
 for f in ~/.bash/*; do source $f; done
 
@@ -72,11 +73,16 @@ if [[ "$sysname" == 'Linux' ]]; then
    . /usr/share/autojump/autojump.sh
    # preferred color for guest
    export PS1="\[\e[34;1m\]\u@\h - \[\e[33;1m\]\t \[\e[31;1m\]\w \[\e[35;1m\]\$(__git_ps1)\[\e[32;1m\]\\n\$\[\e[39;0m\] "
+   [[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] && \
+       . /etc/bash_completion
 else
   . /usr/local/etc/autojump.sh
   # Prompt colour configuration
   # preferred color for host
   export PS1="\[\e[35;1m\]\u@\h - \[\e[32;1m\]\t \[\e[31;1m\]\w \[\e[34;1m\]\$(__git_ps1)\[\e[32;1m\]\\n\$\[\e[36;1m\] "
+if [ -f $(brew --prefix)/etc/bash_completion ]; then
+   . $(brew --prefix)/etc/bash_completion
+fi
 fi
 
 # pyenv root
