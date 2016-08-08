@@ -285,16 +285,6 @@ values."
    ;; (default nil)
    dotspacemacs-whitespace-cleanup nil
    )
-
-  (if (not (eq window-system 'ns))
-      (setq-default dotspacemacs-themes '(monokai
-                                         solarized-dark
-                                         material
-                                         spacemacs-dark
-                                         spacemacs-light
-                                         leuven
-                                         zenburn)
-      ))
   )
 
 (defun dotspacemacs/user-init ()
