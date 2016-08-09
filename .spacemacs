@@ -130,8 +130,9 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(solarized-dark
+   dotspacemacs-themes '(
                          monokai
+                         solarized-dark
                          material
                          spacemacs-dark
                          spacemacs-light
@@ -141,8 +142,9 @@ values."
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
-   dotspacemacs-default-font '("Source Code Pro"
-                               :size 13
+   dotspacemacs-default-font '(;"Source Code Pro"
+                               "Consolas"
+                               :size 16
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -284,16 +286,6 @@ values."
    ;; (default nil)
    dotspacemacs-whitespace-cleanup nil
    )
-
-  (if (not (eq window-system 'ns))
-      (setq-default dotspacemacs-themes '(monokai
-                                         solarized-dark
-                                         material
-                                         spacemacs-dark
-                                         spacemacs-light
-                                         leuven
-                                         zenburn)
-      ))
   )
 
 (defun dotspacemacs/user-init ()
@@ -368,6 +360,37 @@ there's a region, all lines that region covers will be duplicated."
   (global-set-key (kbd "C-c d") 'duplicate-current-line-or-region)
   ;; favorite kill command
   (global-set-key (kbd "C-c w") 'kill-whole-line)
+
+  (defun copy-to-clipboard ()
+    "Copies selection to x-clipboard."
+    (interactive)
+    (if (display-graphic-p)
+        (progn
+          (message "Yanked region to x-clipboard!")
+          (call-interactively 'clipboard-kill-ring-save)
+          )
+      (if (region-active-p)
+          (progn
+            (shell-command-on-region (region-beginning) (region-end) "xsel -i -b")
+            (message "Yanked region to clipboard!")
+            (deactivate-mark))
+        (message "No region active; can't yank to clipboard!")))
+    )
+
+  (defun paste-from-clipboard ()
+    "Pastes from x-clipboard."
+    (interactive)
+    (if (display-graphic-p)
+        (progn
+          (clipboard-yank)
+          (message "graphics active")
+          )
+      (insert (shell-command-to-string "xsel -o -b"))
+      )
+    )
+  (evil-leader/set-key "o y" 'copy-to-clipboard)
+  (evil-leader/set-key "o p" 'paste-from-clipboard)
+  (setq tramp-default-method "ssh")
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
