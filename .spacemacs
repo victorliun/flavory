@@ -46,6 +46,7 @@ values."
      helm
      html
      ibuffer
+     javascript
      markdown
      org
      (python :variables python-enable-yapf-format-on-save t)
