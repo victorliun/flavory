@@ -8,5 +8,5 @@ install:
 .PHONY : install
 
 ansible:
-	ansible-playbook -K $(CURDIR)/ansible/tools.yml
+	ansible-playbook -i $(CURDIR)/ansible/inventory/local -K $(CURDIR)/ansible/tools.yml
 .PHONY : ansible
