@@ -48,6 +48,7 @@ values."
      ibuffer
      javascript
      markdown
+     nginx
      org
      (python :variables python-enable-yapf-format-on-save t)
      semantic
@@ -144,7 +145,7 @@ values."
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '(;"Source Code Pro"
                                "Consolas"
-                               :size 16
+                               :size 15
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)

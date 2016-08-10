@@ -5,13 +5,16 @@
     - name: Run apt-get update
       apt: update_cache=yes
 
+    - name: build dep for emacs24.5
+      apt: pkg=emacs24 state=build-dep
+
     - name: Install favorate tools
       apt: pkg={{ item }} state=latest
       with_items:
         - compiz
         - compiz-plugins
         - compizconfig-settings-manager
-        - emacs
+        - build-dep
         - git
         - htop
         - libtinfo-dev
