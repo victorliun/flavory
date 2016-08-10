@@ -2,6 +2,12 @@
 - hosts: localhost
   become: yes
   tasks:
+    - name: Update apt repository
+      apt_repository: repo={{ item }} state=present
+      with_items:
+        - ppa:nginx/stable
+        - ppa:git-core/ppa
+
     - name: Run apt-get update
       apt: update_cache=yes
 
@@ -11,17 +17,21 @@
     - name: Install favorate tools
       apt: pkg={{ item }} state=latest
       with_items:
+        - build-essential
         - compiz
         - compiz-plugins
         - compizconfig-settings-manager
-        - build-dep
         - git
+        - apache2-utils
+        - autojump
+        - docker
         - htop
+        - ispell
         - libtinfo-dev
+        - silversearcher-ag
         - tmux
         - tree
         - wmctrl
-        - autojump
 
     # extra Python modules
     - name: Install python modules
