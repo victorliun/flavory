@@ -43,6 +43,7 @@ values."
      django
      emacs-lisp
      git
+     go
      helm
      html
      ibuffer
@@ -69,7 +70,14 @@ values."
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages
    '(
+     ansible
      helm-mt
+     key-chord
+     minimap
+     mmm-mode
+     origami
+     pig-mode
+     helm-dash
      )
    ;; A list of packages that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -393,6 +401,9 @@ there's a region, all lines that region covers will be duplicated."
   (evil-leader/set-key "o p" 'paste-from-clipboard)
   (setq tramp-default-method "ssh")
   )
+
+;; Multiple cursor mode
+(global-set-key (kbd "M-D") 'mc/mark-next-like-this)
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.

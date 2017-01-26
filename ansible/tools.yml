@@ -39,3 +39,8 @@
       with_items:
         - epc
         - jedi
+        - autoflake
+        - json-rpc
+        - service_factory
+        - lint
+        - autopep8
