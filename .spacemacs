@@ -50,6 +50,7 @@ values."
      javascript
      markdown
      nginx
+     multiple-cursors
      org
      (python :variables python-enable-yapf-format-on-save t)
      semantic
@@ -369,6 +370,8 @@ there's a region, all lines that region covers will be duplicated."
   (global-set-key (kbd "C-c d") 'duplicate-current-line-or-region)
   ;; favorite kill command
   (global-set-key (kbd "C-c w") 'kill-whole-line)
+  (global-set-key (kbd "M-D") 'mc/mark-next-like-this)
+  (global-set-key (kbd "C-@") 'er/expand-region)
 
   (defun copy-to-clipboard ()
     "Copies selection to x-clipboard."
@@ -403,7 +406,6 @@ there's a region, all lines that region covers will be duplicated."
   )
 
 ;; Multiple cursor mode
-(global-set-key (kbd "M-D") 'mc/mark-next-like-this)
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
