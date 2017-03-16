@@ -369,7 +369,7 @@ there's a region, all lines that region covers will be duplicated."
           (goto-char (+ origin (* (length region) arg) arg)))))
   (global-set-key (kbd "C-c d") 'duplicate-current-line-or-region)
   ;; favorite kill command
-  (global-set-key (kbd "C-c w") 'kill-whole-line)
+  (global-set-key (kbd "C-K") 'kill-whole-line)
   (global-set-key (kbd "M-D") 'mc/mark-next-like-this)
   (global-set-key (kbd "C-@") 'er/expand-region)
 
@@ -404,8 +404,6 @@ there's a region, all lines that region covers will be duplicated."
   (evil-leader/set-key "o p" 'paste-from-clipboard)
   (setq tramp-default-method "ssh")
   )
-
-;; Multiple cursor mode
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
