@@ -60,8 +60,9 @@ start() {
   emacs --daemon
 }
 
-killemc (){
+reemc (){
   emacsclient -e "(kill-emacs)"
+  emacs --daemon
 }
 
 # adding autojump and color

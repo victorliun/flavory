@@ -371,7 +371,6 @@ there's a region, all lines that region covers will be duplicated."
   ;; favorite kill command
   (global-set-key (kbd "C-K") 'kill-whole-line)
   (global-set-key (kbd "M-D") 'mc/mark-next-like-this)
-  (global-set-key (kbd "C-E") 'er/expand-region)
 
   (defun copy-to-clipboard ()
     "Copies selection to x-clipboard."
