@@ -263,7 +263,7 @@ values."
    ;; If non nil line numbers are turned on in all `prog-mode' and `text-mode'
    ;; derivatives. If set to `relative', also turns on relative line numbers.
    ;; (default nil)
-   dotspacemacs-line-numbers nil
+   dotspacemacs-line-numbers t
    ;; Code folding method. Possible values are `evil' and `origami'.
    ;; (default 'evil)
    dotspacemacs-folding-method 'evil
@@ -371,6 +371,8 @@ there's a region, all lines that region covers will be duplicated."
   ;; favorite kill command
   (global-set-key (kbd "C-K") 'kill-whole-line)
   (global-set-key (kbd "M-D") 'mc/mark-next-like-this)
+  (global-set-key (kbd "M-.") 'evil-goto-definition)
+  (global-set-key (kbd "M-,") 'evil-jump-backward)
 
   (defun copy-to-clipboard ()
     "Copies selection to x-clipboard."
