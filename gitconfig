@@ -64,6 +64,7 @@
 	c = commit
 	ca = commit -a
 	cm = commit -m
+  cv = commit -v
 	cem = commit --allow-empty -m
 	cam = commit -am
 	cd = commit --amend

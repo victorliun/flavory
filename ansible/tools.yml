@@ -7,12 +7,13 @@
       with_items:
         - ppa:nginx/stable
         - ppa:git-core/ppa
+        - ppa:kelleyk/emacs
 
     - name: Run apt-get update
       apt: update_cache=yes
 
-    - name: build dep for emacs24.5
-      apt: pkg=emacs24 state=build-dep
+    - name: build dep for emacs25
+      apt: pkg=emacs25-nox state=latest
 
     - name: Install favorate tools
       apt: pkg={{ item }} state=latest

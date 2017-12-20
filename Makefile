@@ -5,6 +5,7 @@ install:
 	ln -sf $(CURDIR)/bash ~/.bash
 	ln -sf $(CURDIR)/tmux.conf ~/.tmux.conf
 	ln -sf $(CURDIR)/.spacemacs ~/.spacemacs
+	ln -sf $(HOME)/spacemacs ~/.emacs.d
 .PHONY : install
 
 ansible:
