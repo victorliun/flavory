@@ -109,3 +109,16 @@ then
     ln -sf $SSH_AUTH_SOCK $SOCK
     export SSH_AUTH_SOCK=$SOCK
 fi
+upgradeImages () {
+  SERVICE_CONTAINERS=`cat /repos/env/deploy/configurations/current/docker-compose-services.yaml | grep image | awk '{print $2}' | sort -u`
+  CONTAINERS="$SERVICE_CONTAINERS `cat /repos/env/deploy/configurations/current/docker-compose.yaml | grep image | awk '{print $2}' | sort -u`"
+  CONTAINERS="$CONTAINERS `cat /repos/env/deploy/configurations/current/docker-compose-master.yaml | grep image | awk '{print $2}' | sort -u`"
+  CONTAINERS="$CONTAINERS `cat /repos/env/deploy/configurations/current/docker-compose-nflex.yaml | grep image | awk '{print $2}' | sort -u`"
+  CONTAINERS="$CONTAINERS `cat /repos/env/deploy/configurations/current/docker-compose-extras.yaml | grep image | awk '{print $2}' | sort -u`"
+
+  for image in ${CONTAINERS}; do   docker pull $image & done; wait
+  docker images | awk '/none/ {print $3}' | xargs -r docker rmi -f
+}
+export PATH="$HOME/bin:$HOME/.local/bin:$PATH:/usr/local/go/bin:/repos/go/bin:/repos/env/deploy"
+export GOPATH="/repos/go"
+/etc/bash_completion.d/docker
