@@ -126,7 +126,6 @@ then
     ln -sf $SSH_AUTH_SOCK $SOCK
     export SSH_AUTH_SOCK=$SOCK
 fi
-}
 export PATH="$HOME/bin:$HOME/.local/bin:$PATH:/usr/local/go/bin:/repos/go/bin:/repos/env/deploy"
 export GOPATH="/repos/go"
 
