@@ -320,6 +320,7 @@ explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
   ;;Configure multiple term
   (require 'helm-mt)
+
   (global-set-key (kbd "C-x t") 'helm-mt)
 
   ;;Setup date time in status bar
@@ -371,6 +372,11 @@ there's a region, all lines that region covers will be duplicated."
   (global-set-key (kbd "M-D") 'mc/mark-next-like-this)
   (global-set-key (kbd "M-.") 'evil-goto-definition)
   (global-set-key (kbd "M-,") 'evil-jump-backward)
+  (global-set-key (kbd "C-c C-d") 'evil-delete-buffer)
+
+  ;; Shell mode key bindings
+  ;; let's bind the new command to a keycombo
+  (define-key comint-mode-map "\C-cl" #'comint-clear-buffer)
 
   ;; (setq interprogram-cut-function
   ;;       (lambda (text &optional push)
@@ -384,6 +390,8 @@ there's a region, all lines that region covers will be duplicated."
   ;; find file in project
   (global-set-key (kbd "C-x f") 'helm-projectile-find-file)
 
+  (add-hook 'python-mode-hook
+            (lambda () (setq python-indent-offset 4)))
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
