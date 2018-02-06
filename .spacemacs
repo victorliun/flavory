@@ -320,6 +320,7 @@ explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
   ;;Configure multiple term
   (require 'helm-mt)
+
   (global-set-key (kbd "C-x t") 'helm-mt)
 
   ;;Setup date time in status bar
@@ -372,8 +373,15 @@ there's a region, all lines that region covers will be duplicated."
   (global-set-key (kbd "M-.") 'evil-goto-definition)
   (global-set-key (kbd "M-,") 'evil-jump-backward)
   (global-set-key (kbd "C-x x") 'er/expand-region)
+  (global-set-key (kbd "C-c C-d") 'evil-delete-buffer)
+
+  ;; Shell mode key bindings
+  ;; let's bind the new command to a keycombo
+  (define-key comint-mode-map "\C-cl" #'comint-clear-buffer)
+
   (setq tramp-default-method "ssh")
   (setq go-tab-width 4)
+
   ;; find file in project
   (global-set-key (kbd "C-x f") 'helm-projectile-find-file)
 
@@ -393,5 +401,6 @@ there's a region, all lines that region covers will be duplicated."
            "** NEXT %? \nDEADLINE: %t") ))
   (setq org-refile-targets (quote ((nil :maxlevel . 9)
                                    (org-agenda-files :maxlevel . 9))))
-
+  (add-hook 'python-mode-hook
+            (lambda () (setq python-indent-offset 4)))
 )
