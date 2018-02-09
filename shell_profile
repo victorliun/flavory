@@ -128,6 +128,25 @@ fi
 export PATH="$HOME/bin:$HOME/.local/bin:$PATH:/usr/local/go/bin:/repos/go/bin:/repos/env/deploy"
 export GOPATH="/repos/go"
 
+if [ -f "/etc/bash_completion.d/docker" ]; then
+   /etc/bash_completion.d/docker
+fi
+
+_ssh()
+{
+    local cur prev opts
+    COMPREPLY=()
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    prev="${COMP_WORDS[COMP_CWORD-1]}"
+    opts=$(grep '^Host' ~/.ssh/config | grep -v '[?*]' | cut -d ' ' -f 2-)
+
+    COMPREPLY=( $(compgen -W "$opts" -- ${cur}) )
+    return 0
+}
+
+complete -F _ssh ssh
+
+export PATH="/usr/local/Cellar/qt5/5.6.2/bin:$PATH"
 upgradeImages () {
     SERVICE_CONTAINERS=`cat /repos/env/deploy/configurations/current/docker-compose-services.yaml | grep image | awk '{print $2}' | sort -u`
     CONTAINERS="$SERVICE_CONTAINERS `cat /repos/env/deploy/configurations/current/docker-compose.yaml | grep image | awk '{print $2}' | sort -u`"

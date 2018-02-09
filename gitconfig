@@ -1,6 +1,8 @@
 [user]
 	name = Victor Liu
 	email = victor.ns.liu@outlook.com
+  # name = Niansheng Liu
+  # email = phenome321@gmail.com
 [core]
 	editor = vim
 	whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
@@ -202,4 +204,4 @@
 	snapshot = !git stash save "snapshot: $(date)" && git stash apply "stash@{0}"
 
 [url "ssh://victor.liu@git.ntteo.net/usr/local/ntt/git/"]
-        insteadOf = https://git.ntteo.net
+    insteadOf = https://git.ntteo.net
