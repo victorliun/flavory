@@ -48,7 +48,6 @@ alias .4="cd ../../../.."
 alias .5="cd ../../../../../"
 alias h="history"
 alias ec="emacsclient -n"
-alias em="emacsclient -t"
 alias gs="git s"
 alias gp="git pl"
 alias gps="git ps"
@@ -139,7 +138,8 @@ upgradeImages () {
     for image in ${CONTAINERS}; do   docker pull $image & done; wait
     docker images | awk '/none/ {print $3}' | xargs -r docker rmi -f
 }
-alias dockerrm="docker ps -a | xargs docker rm -fv"
+alias dockerrm="docker ps -aq | xargs docker rm -fv"
+alias dockerrmv="docker volume ls -q | xargs docker volume rm -f"
 alias dockerrminone="docker images | awk '/none/ {print $3}' | xargs -r docker rmi -f"
 
 if [ -f /etc/bash_completion ]; then
