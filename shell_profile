@@ -47,8 +47,15 @@ alias .3="cd ../../.."
 alias .4="cd ../../../.."
 alias .5="cd ../../../../../"
 alias h="history"
-alias emc="emacsclient"
-alias em="emacsclient -t"
+alias ec="emacsclient -n"
+alias gs="git s"
+alias gp="git pl"
+alias gps="git ps"
+alias gd="git d"
+alias gc="git cv"
+alias gco="git o"
+alias ga="git a ."
+alias gb="git b"
 
 tm() {
   [[ -z "$1" ]] && { echo "usage: tm <session>" >&2; return 1; }
@@ -86,6 +93,15 @@ if [ -f $(brew --prefix)/etc/bash_completion ]; then
 fi
 fi
 
+# enable bash completion in interactive shells
+if ! shopt -oq posix; then
+ if [ -f /usr/share/bash-completion/bash_completion ]; then
+   . /usr/share/bash-completion/bash_completion
+ elif [ -f /etc/bash_completion ]; then
+   . /etc/bash_completion
+ fi
+fi
+
 # pyenv root
 export PYENV_ROOT="$HOME/.pyenv"
 
@@ -109,16 +125,42 @@ then
     ln -sf $SSH_AUTH_SOCK $SOCK
     export SSH_AUTH_SOCK=$SOCK
 fi
-upgradeImages () {
-  SERVICE_CONTAINERS=`cat /repos/env/deploy/configurations/current/docker-compose-services.yaml | grep image | awk '{print $2}' | sort -u`
-  CONTAINERS="$SERVICE_CONTAINERS `cat /repos/env/deploy/configurations/current/docker-compose.yaml | grep image | awk '{print $2}' | sort -u`"
-  CONTAINERS="$CONTAINERS `cat /repos/env/deploy/configurations/current/docker-compose-master.yaml | grep image | awk '{print $2}' | sort -u`"
-  CONTAINERS="$CONTAINERS `cat /repos/env/deploy/configurations/current/docker-compose-nflex.yaml | grep image | awk '{print $2}' | sort -u`"
-  CONTAINERS="$CONTAINERS `cat /repos/env/deploy/configurations/current/docker-compose-extras.yaml | grep image | awk '{print $2}' | sort -u`"
-
-  for image in ${CONTAINERS}; do   docker pull $image & done; wait
-  docker images | awk '/none/ {print $3}' | xargs -r docker rmi -f
-}
 export PATH="$HOME/bin:$HOME/.local/bin:$PATH:/usr/local/go/bin:/repos/go/bin:/repos/env/deploy"
 export GOPATH="/repos/go"
-/etc/bash_completion.d/docker
+
+if [ -f "/etc/bash_completion.d/docker" ]; then
+   /etc/bash_completion.d/docker
+fi
+
+_ssh()
+{
+    local cur prev opts
+    COMPREPLY=()
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    prev="${COMP_WORDS[COMP_CWORD-1]}"
+    opts=$(grep '^Host' ~/.ssh/config | grep -v '[?*]' | cut -d ' ' -f 2-)
+
+    COMPREPLY=( $(compgen -W "$opts" -- ${cur}) )
+    return 0
+}
+
+complete -F _ssh ssh
+
+export PATH="/usr/local/Cellar/qt5/5.6.2/bin:$PATH"
+upgradeImages () {
+    SERVICE_CONTAINERS=`cat /repos/env/deploy/configurations/current/docker-compose-services.yaml | grep image | awk '{print $2}' | sort -u`
+    CONTAINERS="$SERVICE_CONTAINERS `cat /repos/env/deploy/configurations/current/docker-compose.yaml | grep image | awk '{print $2}' | sort -u`"
+    CONTAINERS="$CONTAINERS `cat /repos/env/deploy/configurations/current/docker-compose-master.yaml | grep image | awk '{print $2}' | sort -u`"
+    CONTAINERS="$CONTAINERS `cat /repos/env/deploy/configurations/current/docker-compose-nflex.yaml | grep image | awk '{print $2}' | sort -u`"
+    CONTAINERS="$CONTAINERS `cat /repos/env/deploy/configurations/current/docker-compose-extras.yaml | grep image | awk '{print $2}' | sort -u`"
+
+    for image in ${CONTAINERS}; do   docker pull $image & done; wait
+    docker images | awk '/none/ {print $3}' | xargs -r docker rmi -f
+}
+alias dockerrm="docker ps -aq | xargs docker rm -fv"
+alias dockerrmv="docker volume ls -q | xargs docker volume rm -f"
+alias dockerrminone="docker images | awk '/none/ {print $3}' | xargs -r docker rmi -f"
+
+if [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+fi
