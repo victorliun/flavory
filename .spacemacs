@@ -54,6 +54,7 @@ values."
      multiple-cursors
      org
      (python :variables python-enable-yapf-format-on-save t)
+     (python :variables python-sort-imports-on-save t)
      semantic
      (shell :variables
             shell-default-height 30
@@ -107,7 +108,7 @@ values."
    ;; This variable has no effect if Emacs is launched with the parameter
    ;; `--insecure' which forces the value of this variable to nil.
    ;; (default t)
-   dotspacemacs-elpa-https nil
+   dotspacemacs-elpa-https t
    ;; Maximum allowed time in seconds to contact an ELPA repository.
    dotspacemacs-elpa-timeout 5
    ;; If non nil then spacemacs will check for updates at startup
@@ -318,6 +319,10 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+
+  (setq spacemacs-default-jump-handlers
+        (remove 'evil-goto-definition spacemacs-default-jump-handlers))
+
   ;;Configure multiple term
   (require 'helm-mt)
 
@@ -349,8 +354,8 @@ you should place your code here."
 
   (defun duplicate-current-line-or-region (arg)
       "Duplicates the current line or region ARG times.
-If there's no region, the current line will be duplicated. However, if
-there's a region, all lines that region covers will be duplicated."
+      If there's no region, the current line will be duplicated. However, if
+      there's a region, all lines that region covers will be duplicated."
       (interactive "p")
       (let (beg end (origin (point)))
         (if (and mark-active (> (point) (mark)))
@@ -374,13 +379,22 @@ there's a region, all lines that region covers will be duplicated."
   (global-set-key (kbd "M-,") 'evil-jump-backward)
   (global-set-key (kbd "C-x x") 'er/expand-region)
   (global-set-key (kbd "C-c C-d") 'evil-delete-buffer)
-
+  (global-set-key (kbd "C-c m") 'helm-semantic-or-imenu)
+  (setq-default helm-follow-mode-persistent t)
   ;; Shell mode key bindings
   ;; let's bind the new command to a keycombo
   (define-key comint-mode-map "\C-cl" #'comint-clear-buffer)
 
   (setq tramp-default-method "ssh")
+
+  ;; Python
   (setq go-tab-width 4)
+  (setq python-python-command "/usr/local/bin/python3")
+  (add-hook 'python-mode-hook
+            (lambda () (setq python-indent-offset 4)))
+  (autoload 'pylint "pylint")
+  (add-hook 'python-mode-hook 'pylint-add-menu-items)
+  (add-hook 'python-mode-hook 'pylint-add-key-bindings)
 
   ;; find file in project
   (global-set-key (kbd "C-x f") 'helm-projectile-find-file)
@@ -401,6 +415,18 @@ there's a region, all lines that region covers will be duplicated."
            "** NEXT %? \nDEADLINE: %t") ))
   (setq org-refile-targets (quote ((nil :maxlevel . 9)
                                    (org-agenda-files :maxlevel . 9))))
-  (add-hook 'python-mode-hook
-            (lambda () (setq python-indent-offset 4)))
 )
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (yapfify yaml-mode xterm-color ws-butler winum which-key web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package unfill toc-org tagedit stickyfunc-enhance srefactor spaceline powerline smeargle slim-mode shell-pop scss-mode sass-mode restart-emacs rainbow-delimiters pyvenv pytest pyenv-mode py-isort pug-mode popwin pony-mode pip-requirements pig-mode persp-mode pcre2el paradox spinner orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-plus-contrib org-mime org-download org-bullets open-junk-file nginx-mode neotree mwim move-text mmm-mode minimap markdown-toc markdown-mode magit-gitflow macrostep lorem-ipsum livid-mode skewer-mode simple-httpd live-py-mode linum-relative link-hint less-css-mode key-chord json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc jinja2-mode indent-guide ibuffer-projectile hydra hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-pydoc helm-projectile helm-mt multi-term helm-mode-manager helm-make projectile helm-gitignore request helm-flx helm-descbinds helm-dash helm-css-scss helm-company helm-c-yasnippet helm-ag haml-mode google-translate golden-ratio go-guru go-eldoc gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md fuzzy flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck pkg-info epl flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit magit magit-popup git-commit ghub let-alist with-editor evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight eshell-z eshell-prompt-extras esh-help emmet-mode elisp-slime-nav dumb-jump disaster diminish diff-hl define-word cython-mode company-web web-completion-data company-tern dash-functional tern company-statistics company-go go-mode company-c-headers company-ansible company-anaconda company column-enforce-mode coffee-mode cmake-mode clean-aindent-mode clang-format bind-map bind-key auto-yasnippet yasnippet auto-highlight-symbol auto-dictionary auto-compile packed ansible-doc ansible anaconda-mode pythonic f dash s aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core async ac-ispell auto-complete popup monokai-theme))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

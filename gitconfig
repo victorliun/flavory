@@ -1,8 +1,6 @@
 [user]
 	name = Victor Liu
-	email = victor.ns.liu@outlook.com
-  # name = Niansheng Liu
-  # email = phenome321@gmail.com
+	email = victor.liu@festicket.com
 [core]
 	editor = vim
 	whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
