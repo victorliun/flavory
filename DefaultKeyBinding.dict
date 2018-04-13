@@ -36,6 +36,10 @@ https://developer.apple.com/library/mac/#documentation/Cocoa/Reference/Applicati
 https://developer.apple.com/library/mac/#documentation/Cocoa/Reference/ApplicationKit/Classes/nsdocument_Class/Reference/Reference.html
 https://developer.apple.com/library/mac/#documentation/Cocoa/Reference/ApplicationKit/Classes/NSTextView_Class/Reference/Reference.html
 http://developer.apple.com/library/mac/#documentation/Cocoa/Reference/ApplicationKit/Classes/NSWindow_Class/Reference/Reference.html
+
+# two defaults to make key repeat faster
+defaults write -g InitialKeyRepeat -int 10 # normal minimum is 15 (225 ms)
+defaults write -g KeyRepeat -int 1 # normal minimum is 2 (30 ms)
 */
 
 {
