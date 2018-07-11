@@ -47,7 +47,8 @@ alias .3="cd ../../.."
 alias .4="cd ../../../.."
 alias .5="cd ../../../../../"
 alias h="history"
-alias ec="emacsclient -n"
+alias em="emacsclient -n"
+alias e="emacsclient -t"
 alias gs="git s"
 alias gp="git pl"
 alias gps="git ps"
@@ -75,6 +76,9 @@ reemc (){
 
 [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
 [ -f /usr/share/autojump/autojump.sh ] && . /usr/local/etc/autojump.sh
+
+# bash completion
+[ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
 
 # adding autojump and color
 parse_git_branch() {
