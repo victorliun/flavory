@@ -61,6 +61,15 @@ alias ga="git a ."
 alias gb="git b"
 alias e="emacsclient -t $1"
 
+ed(){
+    IFS=':' read -r -a array <<< "$1"
+    if [ -z "${array[1]}" ]
+    then
+        emacsclient -t "${array[0]}"
+    else
+        emacsclient +"${array[1]}" -t "${array[0]}"
+    fi
+}
 tm() {
   [[ -z "$1" ]] && { echo "usage: tm <session>" >&2; return 1; }
   tmux has -t $1 && tmux attach -d -t $1 || tmux new -s $1
