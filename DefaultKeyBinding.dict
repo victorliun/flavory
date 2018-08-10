@@ -1,4 +1,8 @@
 /*
+;; Faster key repeat
+defaults write -g InitialKeyRepeat -int 10
+defaults write -g KeyRepeat -int 1
+
 ~/Library/KeyBindings/DefaultKeyBinding.Dict
 This file remaps the key bindings of a single user on Mac OS X 10.5 to more closely
 match default behavior on Windows systems.
