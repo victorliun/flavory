@@ -59,7 +59,12 @@ alias gc="git cv"
 alias gco="git o"
 alias ga="git a ."
 alias gb="git b"
+alias g-="git o -"
 alias e="emacsclient -t $1"
+
+gcb() {
+    git checkout `git b | grep $1`
+}
 
 ed(){
     IFS=':' read -r -a array <<< "$1"
