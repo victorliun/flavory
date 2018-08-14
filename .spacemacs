@@ -154,8 +154,9 @@ values."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '(;"Source Code Pro"
-                               "Consolas"
-                               :size 15
+                               ;"Consolas"
+                               "Monaco"
+                               :size 11
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -396,9 +397,10 @@ you should place your code here."
             (lambda () (setq python-indent-offset 4)))
 
   (setq org-agenda-files (list "~/Dropbox/org/work.org"
-                               "~/Dropbox/org/sides.org" 
+                               "~/Dropbox/org/sides.org"
                                "~/Dropbox/org/home.org"))
-
+  ;; generate ctags command
+  ;;find. -type f -iname "*.py" | xargs etags -a
 )
 (defun dotspacemacs/emacs-custom-settings ()
   "Emacs custom settings.
