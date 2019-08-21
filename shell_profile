@@ -61,7 +61,7 @@ alias ga="git a ."
 alias gb="git b"
 alias g-="git o -"
 alias e="emacsclient -t $1"
-
+alias awslogin=$(aws ecr get-login --no-include-email)
 gcb() {
     git checkout `git b | grep $1`
 }
