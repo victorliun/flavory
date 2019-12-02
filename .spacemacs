@@ -33,7 +33,11 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(
+   '(react
+     rust
+     markdown
+     html
+     yaml
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
@@ -486,6 +490,49 @@ before packages are loaded."
   (global-set-key (kbd "M-p") 'elpy-nav-backward-block)
   (global-set-key (kbd "M-n") 'elpy-nav-forward-block)
 
+  (global-set-key (kbd "C-x t") 'helm-mt)
+
+  ;;Setup date time in status bar
+  (setq display-time-day-and-date t
+        display-time-24hr-format t)
+  (display-time)
+  (if (eq window-system 'ns)
+      (mouse-wheel-mode -1)
+    )
+  (setq tramp-ssh-controlmaster-options
+        "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no")
+
+  ;;; My key bindings.
+  ;; Move cursor between buffers
+  (global-set-key (kbd "<S-left>") 'windmove-left)
+  (global-set-key (kbd "<S-right>") 'windmove-right)
+  (global-set-key (kbd "<S-up>") 'windmove-up)
+  (global-set-key (kbd "<S-down>") 'windmove-down)
+
+  ;; Move line/region up down
+  (global-set-key (kbd "M-p") 'move-text-up)
+  (global-set-key (kbd "M-n") 'move-text-down)
+
+  ;; magit
+  (global-set-key (kbd "C-x g") 'magit-status)
+  (setq magit-commit-show-diff nil
+        magit-revert-buffers 1)
+  (setq vc-handled-backends nil)
+  ;; fast duplicate line or region
+  (global-set-key (kbd "C-c d") 'spacemacs/duplicate-line-or-region)
+  (global-set-key (kbd "M-D") 'mc/mark-next-like-this)
+  (global-set-key (kbd "M-.") 'evil-goto-definition)
+  (global-set-key (kbd "M-,") 'evil-jump-backward)
+  (global-set-key (kbd "C-x x") 'er/expand-region)
+  (global-set-key (kbd "C-c C-d") 'evil-delete-buffer)
+  (global-set-key (kbd "C-c m") 'helm-semantic-or-imenu)
+
+  ;; Shell mode key bindings
+  ;; let's bind the new command to a keycombo
+  (define-key comint-mode-map "\C-cl" #'comint-clear-buffer)
+
+  (autoload 'pylint "pylint")
+  (add-hook 'python-mode-hook 'pylint-add-menu-items)
 ) ;; end user-config
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -503,7 +550,7 @@ This function is called at the very end of Spacemacs initialization."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (yapfify stickyfunc-enhance pytest pyenv-mode py-isort pippel pipenv pyvenv pip-requirements lsp-python-ms python lsp-mode markdown-mode dash-functional live-py-mode importmagic epc ctable concurrent deferred helm-pydoc helm-gtags helm-cscope xcscope ggtags cython-mode counsel-gtags counsel swiper ivy company-anaconda company blacken anaconda-mode pythonic ws-butler writeroom-mode winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package treemacs-projectile toc-org symon symbol-overlay string-inflection spaceline-all-the-icons restart-emacs request rainbow-delimiters popwin persp-mode pcre2el password-generator paradox overseer org-plus-contrib org-bullets open-junk-file nameless move-text macrostep lorem-ipsum link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio font-lock+ flycheck-package flx-ido fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu elisp-slime-nav editorconfig dumb-jump dotenv-mode doom-modeline diminish devdocs define-word column-enforce-mode clean-aindent-mode centered-cursor-mode auto-highlight-symbol auto-compile aggressive-indent ace-link ace-jump-helm-line))))
+    (toml-mode racer flycheck-rust cargo rust-mode vmd-mode mmm-mode markdown-toc gh-md emoji-cheat-sheet-plus company-emoji company-web web-completion-data add-node-modules-path yapfify stickyfunc-enhance pytest pyenv-mode py-isort pippel pipenv pyvenv pip-requirements lsp-python-ms python lsp-mode markdown-mode dash-functional live-py-mode importmagic epc ctable concurrent deferred helm-pydoc helm-gtags helm-cscope xcscope ggtags cython-mode counsel-gtags counsel swiper ivy company-anaconda company blacken anaconda-mode pythonic ws-butler writeroom-mode winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package treemacs-projectile toc-org symon symbol-overlay string-inflection spaceline-all-the-icons restart-emacs request rainbow-delimiters popwin persp-mode pcre2el password-generator paradox overseer org-plus-contrib org-bullets open-junk-file nameless move-text macrostep lorem-ipsum link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio font-lock+ flycheck-package flx-ido fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu elisp-slime-nav editorconfig dumb-jump dotenv-mode doom-modeline diminish devdocs define-word column-enforce-mode clean-aindent-mode centered-cursor-mode auto-highlight-symbol auto-compile aggressive-indent ace-link ace-jump-helm-line))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
