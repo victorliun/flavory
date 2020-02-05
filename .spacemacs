@@ -33,7 +33,8 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(react
+   '(sql
+     react
      rust
      markdown
      html
@@ -479,7 +480,6 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
-  (add-hook 'python-mode-hook 'blacken-mode)
   (use-package elpy
     :ensure t
     :init
@@ -520,6 +520,7 @@ before packages are loaded."
   (setq vc-handled-backends nil)
   ;; fast duplicate line or region
   (global-set-key (kbd "C-c d") 'spacemacs/duplicate-line-or-region)
+  (global-set-key (kbd "C-c f") 'helm-projectile-find-file)
   (global-set-key (kbd "M-D") 'mc/mark-next-like-this)
   (global-set-key (kbd "M-.") 'evil-goto-definition)
   (global-set-key (kbd "M-,") 'evil-jump-backward)
@@ -533,6 +534,9 @@ before packages are loaded."
 
   (autoload 'pylint "pylint")
   (add-hook 'python-mode-hook 'pylint-add-menu-items)
+
+  (delete-selection-mode 1)
+  (add-hook 'python-mode-hook 'blacken-mode)
 ) ;; end user-config
 
 ;; Do not write anything past this comment. This is where Emacs will
