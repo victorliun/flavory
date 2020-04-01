@@ -521,13 +521,18 @@ before packages are loaded."
   (setq vc-handled-backends nil)
   ;; fast duplicate line or region
   (global-set-key (kbd "C-c d") 'spacemacs/duplicate-line-or-region)
-  (global-set-key (kbd "C-c f") 'helm-projectile-find-file)
+  (global-set-key (kbd "C-x f") 'helm-projectile-find-file)
   (global-set-key (kbd "M-D") 'mc/mark-next-like-this)
   (global-set-key (kbd "M-.") 'evil-goto-definition)
   (global-set-key (kbd "M-,") 'evil-jump-backward)
   (global-set-key (kbd "C-x x") 'er/expand-region)
   (global-set-key (kbd "C-c C-d") 'evil-delete-buffer)
   (global-set-key (kbd "C-c m") 'helm-semantic-or-imenu)
+
+  ;; search
+  (setq helm-ag-use-agignore t)
+  (setq helm-ag-command-option " -U" )
+  (add-hook 'hack-local-variables-hook (lambda () (setq truncate-lines t)))
 
   ;; Shell mode key bindings
   ;; let's bind the new command to a keycombo

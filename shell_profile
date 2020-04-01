@@ -169,7 +169,6 @@ upgradeImages () {
 alias dockerrm="docker ps -aq | xargs docker rm -fv"
 alias dockerrmv="docker volume ls -q | xargs docker volume rm -f"
 alias dockerrminone="docker images | awk '/none/ {print $3}' | xargs docker rmi -f"
-
 alias dockerclean="docker rmi $(docker images -q -f dangling=true)"
 if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
