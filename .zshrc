@@ -9,7 +9,7 @@ fi
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/victorliu/.oh-my-zsh"
+export ZSH="/Users/victor/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -111,6 +111,7 @@ alias zshconfig=". ~/.zshrc"
 alias ohmyzsh=". ~/.oh-my-zsh"
 alias -s {py,css,html,js}="te"
 alias activate='. .venv/bin/activate'
+alias tags="find . -type f -iname '*.py' | xargs etags -a"
 # unalias emacs
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
