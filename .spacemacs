@@ -50,9 +50,7 @@ This function should only modify configuration layer settings."
      markdown
      multiple-cursors
      org
-     (python :variables
-             python-enable-yapf-format-on-save t
-             python-sort-imports-on-save t)
+     python
 
      (shell :variables
             shell-default-height 30
@@ -482,9 +480,14 @@ before packages are loaded."
     :init
     (elpy-enable))
   (delete-selection-mode 1)
+
   (add-hook 'python-mode-hook 'blacken-mode)
   (add-hook 'python-mode-hook
-            (lambda () (add-hook 'before-save-hook 'spacemacs/python-remove-unused-imports nil 'local)))
+            (lambda ()
+              (add-hook 'before-save-hook 'spacemacs/python-remove-unused-imports)
+              ;(add-hook 'before-save-hook 'importmagic-fix-)
+              (add-hook 'before-save-hook 'py-isort-before-save)
+              (add-hook 'before-save-hook 'blacken-buffer)))
 
   ;;; key bindings
   ;;
@@ -538,8 +541,8 @@ before packages are loaded."
   ;; let's bind the new command to a keycombo
   (define-key comint-mode-map "\C-cl" #'comint-clear-buffer)
 
-  (autoload 'pylint "pylint")
-  (add-hook 'python-mode-hook 'pylint-add-menu-items)
+  ;; (autoload 'pylint "pylint")
+  ;; (add-hook 'python-mode-hook 'pylint-add-menu-items)
 
   ;;;  Org mode
   ;; Set default column view headings: Task Total-Time Time-Stamp
@@ -581,7 +584,7 @@ This function is called at the very end of Spacemacs initialization."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (tern skewer-mode multiple-cursors js2-mode import-js grizzl helm-gtags ggtags dap-mode lsp-treemacs bui lsp-mode counsel-gtags counsel swiper ivy add-node-modules-path paredit smartparens package-lint flycheck flx request helm helm-core projectile spaceline powerline all-the-icons memoize treemacs pfuture ace-window dash evil undo-tree hydra lv async xterm-color vterm treemacs-magit terminal-here shell-pop pyvenv orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download org-cliplink org-brain org-ql peg ov org-super-agenda dash-functional ts multi-term markdown-mode magit-section magit-popup epc ctable concurrent deferred simple-httpd htmlize helm-org-rifle helm-org haml-mode gnuplot gitignore-mode pos-tip evil-org magit git-commit with-editor transient eshell-z eshell-prompt-extras esh-help web-completion-data go-mode company yasnippet anaconda-mode pythonic auto-complete treemacs-persp helm-ls-git flycheck-elsa hybrid-mode yasnippet-snippets yapfify yaml-mode ws-butler writeroom-mode winum which-key web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package unfill treemacs-projectile toml-mode toc-org tagedit symon symbol-overlay string-inflection sql-indent spaceline-all-the-icons smeargle slim-mode scss-mode sass-mode rjsx-mode restart-emacs rainbow-delimiters racer pytest pyenv-mode py-isort pug-mode prettier-js popwin pony-mode pippel pipenv pip-requirements persp-mode pcre2el password-generator paradox overseer org-plus-contrib org-bullets open-junk-file nodejs-repl nameless mwim move-text monokai-theme mmm-mode markdown-toc magit-svn magit-gitflow macrostep lorem-ipsum livid-mode live-py-mode link-hint json-navigator json-mode js2-refactor js-doc indent-guide importmagic impatient-mode hungry-delete hl-todo highlight-parentheses highlight-numbers helm-xref helm-themes helm-swoop helm-pydoc helm-purpose helm-projectile helm-mode-manager helm-make helm-gitignore helm-git-grep helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate golden-ratio godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc gitignore-templates gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md fuzzy font-lock+ flycheck-rust flycheck-pos-tip flycheck-package flx-ido fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu emmet-mode elpy elisp-slime-nav editorconfig dumb-jump dotenv-mode doom-modeline diminish devdocs define-word cython-mode company-web company-tern company-statistics company-go company-anaconda column-enforce-mode clean-aindent-mode centered-cursor-mode cargo blacken auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent ace-link ace-jump-helm-line ac-ispell))))
+    (visual-fill-column anzu iedit ht avy tern skewer-mode multiple-cursors js2-mode import-js grizzl helm-gtags ggtags dap-mode lsp-treemacs bui lsp-mode counsel-gtags counsel swiper ivy add-node-modules-path paredit smartparens package-lint flycheck flx request helm helm-core projectile spaceline powerline all-the-icons memoize treemacs pfuture ace-window dash evil undo-tree hydra lv async xterm-color vterm treemacs-magit terminal-here shell-pop pyvenv orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download org-cliplink org-brain org-ql peg ov org-super-agenda dash-functional ts multi-term markdown-mode magit-section magit-popup epc ctable concurrent deferred simple-httpd htmlize helm-org-rifle helm-org haml-mode gnuplot gitignore-mode pos-tip evil-org magit git-commit with-editor transient eshell-z eshell-prompt-extras esh-help web-completion-data go-mode company yasnippet anaconda-mode pythonic auto-complete treemacs-persp helm-ls-git flycheck-elsa hybrid-mode yasnippet-snippets yapfify yaml-mode ws-butler writeroom-mode winum which-key web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package unfill treemacs-projectile toml-mode toc-org tagedit symon symbol-overlay string-inflection sql-indent spaceline-all-the-icons smeargle slim-mode scss-mode sass-mode rjsx-mode restart-emacs rainbow-delimiters racer pytest pyenv-mode py-isort pug-mode prettier-js popwin pony-mode pippel pipenv pip-requirements persp-mode pcre2el password-generator paradox overseer org-plus-contrib org-bullets open-junk-file nodejs-repl nameless mwim move-text monokai-theme mmm-mode markdown-toc magit-svn magit-gitflow macrostep lorem-ipsum livid-mode live-py-mode link-hint json-navigator json-mode js2-refactor js-doc indent-guide importmagic impatient-mode hungry-delete hl-todo highlight-parentheses highlight-numbers helm-xref helm-themes helm-swoop helm-pydoc helm-purpose helm-projectile helm-mode-manager helm-make helm-gitignore helm-git-grep helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate golden-ratio godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc gitignore-templates gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md fuzzy font-lock+ flycheck-rust flycheck-pos-tip flycheck-package flx-ido fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu emmet-mode elpy elisp-slime-nav editorconfig dumb-jump dotenv-mode doom-modeline diminish devdocs define-word cython-mode company-web company-tern company-statistics company-go company-anaconda column-enforce-mode clean-aindent-mode centered-cursor-mode cargo blacken auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent ace-link ace-jump-helm-line ac-ispell))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
